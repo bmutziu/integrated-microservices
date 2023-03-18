@@ -1,0 +1,106 @@
+2023-03-18 16: 19: 22.112  INFO 22718 --- [nio-8080-exec-2
+] c.e.d.client.rest.ClientRestController   : Start the client and publish ClientStartedEvent
+2023-03-18 16: 19: 22.112  INFO 22718 --- [nio-8080-exec-2
+] c.e.demo.client.impl.ClientGatewayImpl   : Publishing event com.example.demo.client.event.ClientStartedEvent@61ecfa91 to world
+
+2023-03-18 16: 19: 22.118  INFO 23441 --- [ontendInQueue-1
+] c.e.d.f.backend.domain.FrontendService   : onClientStartedEvent()
+2023-03-18 16: 19: 22.119  INFO 23441 --- [ontendInQueue-1
+] com.example.demo.common.AbstractSaga     : Starting SAGA CreateCustomerSaga
+2023-03-18 16: 19: 22.120  INFO 23441 --- [ontendInQueue-1
+] c.e.d.f.b.i.FrontendCustomerGatewayImpl  : sendCreateCustomerCommand ASYNC com.example.demo.frontend.backend.event.CreateCustomerCommand@5f552bce
+2023-03-18 16: 19: 22.132  INFO 23441 --- [coringInQueue-1
+] c.e.d.s.backend.impl.ScoringGatewayImpl  : onComputeScoreCommand: GenericMessage [payload=com.example.demo.scoring.backend.event.ComputeScoreCommand@7d504f7e, headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=scoringInTopic, amqp_deliveryTag=2, deliveryAttempt=1, amqp_consumerQueue=scoringInQueue, amqp_redelivered=false, source=customer, type=ComputeScoreCommand, flowName=CreateCustomerFlow, amqp_receivedRoutingKey=scoringInTopic, isCommand=true, amqp_timestamp=Sat Mar 18 16: 19: 22 EET 2023, replyTo=customer, amqp_messageId=24ece201-319b-234d-cc7a-4f7c2822e48e, isPublic=true, id=fba27825-b55a-b4b7-f245-9074cfd95ac9, amqp_consumerTag=amq.ctag-7G6LPl4iBwlsywx9vFPTxw, sourceData=(Body:'{
+            "id": "41a11ed6-f835-4962-84f1-f6099e856b80",
+            "type": "ComputeScoreCommand",
+            "time": "18 Mar 2023 14:19:22 GMT",
+            "server": "frontend",
+            "source": "customer",
+            "destination": "scoring",
+            "replyTo": "customer",
+            "correlationId": "e00dfc6c-3d64-43a3-b466-de31f8076543",
+            "userId": null,
+            "flowName": "CreateCustomerFlow",
+            "flowId": "975a3306-ed28-4ed8-9c89-987de5cff982",
+            "sagaName": "ComputeScoreSaga",
+            "sagaId": "97e673f9-6d7d-4554-990f-30fdf4907c84",
+            "entity": "Score",
+            "subject": null,
+            "datacontenttype": "application/json;charset=utf-8",
+            "data": {
+                "name": "Mr Dupont en €",
+                "value": 200
+            }
+        }' MessageProperties [headers={isCommand=true, replyTo=customer, isPublic=true, source=customer, type=ComputeScoreCommand, flowName=CreateCustomerFlow, entity=Score
+            }, timestamp=Sat Mar 18 16: 19: 22 EET 2023, messageId=24ece201-319b-234d-cc7a-4f7c2822e48e, contentType=application/json, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=scoringInTopic, receivedRoutingKey=scoringInTopic, deliveryTag=2, consumerTag=amq.ctag-7G6LPl4iBwlsywx9vFPTxw, consumerQueue=scoringInQueue
+        ]), contentType=application/json, entity=Score, timestamp=1679149162131
+    }
+]
+2023-03-18 16: 19: 22.133  INFO 23441 --- [coringInQueue-1
+] c.e.d.s.backend.impl.ScoringGatewayImpl  : publishReply: com.example.demo.scoring.backend.event.ScoreComputedEvent@8ad89a6c
+
+2023-03-18 16: 19: 22.123  INFO 23484 --- [stomerInQueue-1
+] c.e.d.c.b.impl.CustomerGatewayImpl       : onCreateCustomerCommand() GenericMessage [payload=com.example.demo.customer.backend.event.CreateCustomerCommand@5f552bce, headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=customerInTopic, amqp_deliveryTag=3, deliveryAttempt=1, amqp_consumerQueue=customerInQueue, amqp_redelivered=false, source=frontend, type=CreateCustomerCommand, flowName=CreateCustomerFlow, amqp_receivedRoutingKey=customerInTopic, isCommand=true, amqp_timestamp=Sat Mar 18 16: 19: 22 EET 2023, replyTo=frontend, amqp_messageId=1d419fb8-2ccc-16ea-5504-e142dd4730bd, isPublic=true, id=cb80d932-b951-7782-891b-7b99b9e937c1, amqp_consumerTag=amq.ctag-eqWFBvSqMV2x6j6OsHlaBw, sourceData=(Body:'{
+            "id": "e00dfc6c-3d64-43a3-b466-de31f8076543",
+            "type": "CreateCustomerCommand",
+            "time": "18 Mar 2023 14:19:22 GMT",
+            "server": "client",
+            "source": "frontend",
+            "destination": "customer",
+            "replyTo": "frontend",
+            "correlationId": "05b12313-508d-4bb8-b874-94d5d9e131c2",
+            "userId": null,
+            "flowName": "CreateCustomerFlow",
+            "flowId": "975a3306-ed28-4ed8-9c89-987de5cff982",
+            "sagaName": "CreateCustomerSaga",
+            "sagaId": "975a3306-ed28-4ed8-9c89-987de5cff982",
+            "entity": "Customer",
+            "subject": null,
+            "datacontenttype": "application/json;charset=utf-8",
+            "data": {
+                "name": "Mr Dupont en €",
+                "value": 200
+            }
+        }' MessageProperties [headers={isCommand=true, replyTo=frontend, isPublic=true, source=frontend, type=CreateCustomerCommand, flowName=CreateCustomerFlow, entity=Customer
+            }, timestamp=Sat Mar 18 16: 19: 22 EET 2023, messageId=1d419fb8-2ccc-16ea-5504-e142dd4730bd, contentType=application/json, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=customerInTopic, receivedRoutingKey=customerInTopic, deliveryTag=3, consumerTag=amq.ctag-eqWFBvSqMV2x6j6OsHlaBw, consumerQueue=customerInQueue
+        ]), contentType=application/json, entity=Customer, timestamp=1679149162123
+    }
+]
+2023-03-18 16: 19: 22.124  INFO 23484 --- [stomerInQueue-1
+] c.e.d.c.backend.domain.CustomerService   : onCreateCustomerCommand com.example.demo.customer.backend.event.CreateCustomerCommand@5f552bce
+2023-03-18 16: 19: 22.125  INFO 23484 --- [stomerInQueue-1
+] com.example.demo.common.AbstractSaga     : Starting SAGA ComputeScoreSaga
+2023-03-18 16: 19: 22.125  INFO 23484 --- [stomerInQueue-1
+] c.e.d.c.b.i.CustomerScoringGatewayImpl   : sendComputeScoreCommand HTTP com.example.demo.customer.backend.event.ComputeScoreCommand@7d504f7e
+
+2023-03-18 16: 19: 22.136  INFO 23543 --- [stomerInQueue-1
+] c.e.d.c.b.i.CustomerScoringGatewayImpl   : onComputeScoreSuccess: GenericMessage [payload=ScoreComputedEvent(), headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=scoringOutTopic, amqp_deliveryTag=3, deliveryAttempt=1, amqp_consumerQueue=customerInQueue, amqp_redelivered=false, source=scoring, type=ScoreComputedEvent, flowName=CreateCustomerFlow, amqp_receivedRoutingKey=scoringOutTopic, isCommand=false, amqp_timestamp=Sat Mar 18 16: 19: 22 EET 2023, replyTo=customer, amqp_messageId=733be9b7-563e-2c89-1c11-97edc4dfef20, isPublic=true, id=2945e5fa-63fc-1eab-36af-dd4b4bcc6d17, amqp_consumerTag=amq.ctag-tgKgd2NipnNXgz4iXcS36g, sourceData=(Body:'{
+            "id": "ca5a6f99-8d53-4b63-af02-a4c407b8f502",
+            "type": "ScoreComputedEvent",
+            "time": "18 Mar 2023 14:19:22 GMT",
+            "server": "client",
+            "source": "scoring",
+            "destination": "customer",
+            "replyTo": "customer",
+            "correlationId": "41a11ed6-f835-4962-84f1-f6099e856b80",
+            "userId": null,
+            "flowName": "CreateCustomerFlow",
+            "flowId": "975a3306-ed28-4ed8-9c89-987de5cff982",
+            "sagaName": "ComputeScoreSaga",
+            "sagaId": "97e673f9-6d7d-4554-990f-30fdf4907c84",
+            "entity": "Score",
+            "subject": null,
+            "datacontenttype": "application/json;charset=utf-8",
+            "data": {
+                "scoreUrl": "http://localhost:8082/scores/200"
+            }
+        }' MessageProperties [headers={isCommand=false, replyTo=customer, isPublic=true, source=scoring, type=ScoreComputedEvent, flowName=CreateCustomerFlow, entity=Score
+            }, timestamp=Sat Mar 18 16: 19: 22 EET 2023, messageId=733be9b7-563e-2c89-1c11-97edc4dfef20, contentType=application/json, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=scoringOutTopic, receivedRoutingKey=scoringOutTopic, deliveryTag=3, consumerTag=amq.ctag-tgKgd2NipnNXgz4iXcS36g, consumerQueue=customerInQueue
+        ]), contentType=application/json, entity=Score, timestamp=1679149162136
+    }
+]
+
+2023-03-18 16: 19: 22.128  INFO 23607 --- [nio-8082-exec-3
+] c.e.d.s.p.r.ProxyScoringRestController   : Forwarding Command to Scoring... com.example.demo.scoring.proxy.event.ComputeScoreCommand@7d504f7e
+2023-03-18 16: 19: 22.128  INFO 23607 --- [nio-8082-exec-3
+] c.e.d.s.p.impl.ProxyScoringGatewayImpl   : Sending com.example.demo.scoring.proxy.event.ComputeScoreCommand@7d504f7e to SELF
